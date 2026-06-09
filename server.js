@@ -5,30 +5,22 @@ const app = express();
 
 app.use(cors());
 
-app.get("/api/menu/", async (req, res) => {
+app.get("/api/menu/:id", async (req, res) => {
   try {
+    const { id } = req.params;
+
     const response = await fetch(
-      "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.5288974&lng=73.8665321&restaurantId=21001",
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/137.0.0.0 Safari/537.36",
-          Accept: "application/json",
-        },
-      }
+      `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.5288974&lng=73.8665321&restaurantId=${id}`
     );
 
-    console.log("Status:", response.status);
+    const text = await response.text();
 
-    const data = await response.json();
+    console.log("STATUS:", response.status);
+    console.log(text.slice(0, 300));
 
-    res.json(data);
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      error: error.message,
-    });
+    res.send(text);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
