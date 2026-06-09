@@ -8,7 +8,7 @@ app.use(cors());
 app.get("/api/menu/", async (req, res) => {
   try {
     const response = await fetch(
-      "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.5288974&lng=73.8665321&restaurantId=",
+      "https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.5288974&lng=73.8665321&restaurantId=21001",
       {
         headers: {
           "User-Agent":
